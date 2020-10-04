@@ -27,18 +27,18 @@ class vs_dotnet (
         'require'  => [ Package['yum-plugin-priorities'] ],
     }
     
-    class { '::dotnet::sdk':
+    class { '::vs_dotnet::sdk':
         yumrepo_defaults    => $yumrepo_defaults,
         sdk_version         => $sdkVersion
     }
     
-    -> class { '::dotnet::sdk_multiversion':
+    -> class { '::vs_dotnet::sdk_multiversion':
         sdkUser => $sdkUser,
         sdks    => [$sdkVersion] + $sdks,
     }
     
     if $mono {
-        class { '::dotnet::mono':
+        class { '::vs_dotnet::mono':
             yumrepo_defaults  => $yumrepo_defaults,
         }
     }

@@ -1,4 +1,4 @@
-class dotnet::sdk (
+class vs_dotnet::sdk (
     $yumrepo_defaults,
     $sdk_version
 ) {

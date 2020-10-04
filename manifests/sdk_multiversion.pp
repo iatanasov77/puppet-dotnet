@@ -2,7 +2,7 @@
 # Install and use multiple dotnet sdk versions
 # Tutorial: https://www.hanselman.com/blog/SideBySideUserScopedNETCoreInstallationsOnLinuxWithDotnetinstallsh.aspx
 #######################################################################################################################
-class dotnet::sdk_multiversion (
+class vs_dotnet::sdk_multiversion (
     String $sdkUser    = 'vagrant',
     Array $sdks         = [],
 ) {
