@@ -1,0 +1,43 @@
+{
+  "name": "vs-dotnet",
+  "version": "0.1.0",
+  "author": "Ivan I. Atanasov",
+  "summary": "Installs, configures, and manages the dotnet core and mono.",
+  "license": "Apache-2.0",
+  "source": "https://github.com/iatanasov77/puppet-dotnet.git",
+  "project_page": "https://github.com/iatanasov77/puppet-dotnet",
+  "dependencies": [],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "18.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.0.0 < 7.0.0"
+    }
+  ],
+  "description": "Developement environement ( Lamp stack + other usefull tools )"
+}
