@@ -1,5 +1,5 @@
 {
-  "name": "vs-dotnet",
+  "name": "vs_dotnet",
   "version": "0.1.0",
   "author": "Ivan I. Atanasov",
   "summary": "Installs, configures, and manages the dotnet core and mono.",

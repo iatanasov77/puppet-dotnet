@@ -1,4 +1,4 @@
-class dotnet (
+class vs_dotnet (
     $sdkVersion     = '3.1',
     String $sdkUser = 'vagrant',
     Array $sdks     = [],
