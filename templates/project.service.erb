@@ -1,0 +1,22 @@
+#############################################################################
+# Example: VsMyprojects/examples/TestApplication/TestApplication.service
+#############################################################################
+[Unit]
+Description=ASP.NET Core web template
+
+[Service]
+WorkingDirectory=/srv/<%= @projectName %>
+ExecStart=/srv/<%= @projectName %>/<%= @projectName %>
+SyslogIdentifier=<%= @projectName %>
+User=<%= @sdkUser %>
+Restart=always
+RestartSec=5
+
+KillSignal=SIGINT
+Environment=ASPNETCORE_ENVIRONMENT=Development
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+Environment=DOTNET_ROOT=/home/<%= @sdkUser %>/.dotnet/dotnet
+Environment=ASPNETCORE_URLS=http://*:<%= @reverseProxyPort %>
+
+[Install]
+WantedBy=multi-user.target
