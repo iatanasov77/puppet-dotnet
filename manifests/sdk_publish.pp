@@ -3,6 +3,7 @@
 # Tutorial: https://swimburger.net/blog/dotnet/how-to-run-aspnet-core-as-a-service-on-linux
 #######################################################################################################################
 define vs_dotnet::sdk_publish (
+    String $application,
     String $projectName,
     String $projectPath,
     String $sdkUser             = 'vagrant',
