@@ -8,15 +8,14 @@ define vs_dotnet::sdk_publish (
     String $sdkUser             = 'vagrant',
     Integer $reverseProxyPort   = 5000
 ) {
-
     File { "Create DotNet Application Publish Path with needed permissions":
         ensure  => directory,
-        path    => "/srv/${projectName}"
-        mode    => "0777"
+        path    => "/srv/${projectName}",
+        mode    => "0777",
     } ->
 
     Exec { "Dotnet SDK Publish ${projectPath}":
-        command     => "dotnet publish -c Debug -o /srv/${projectName}/ --self-contained --runtime linux-x64",
+        command     => "dotnet publish -c Debug -o /srv/${projectName}/ --self-contained --runtime linux-x64", # && true
         path        => "/home/${sdkUser}/.dotnet/",
         cwd         => "${projectPath}",
         user        => "${sdkUser}",
