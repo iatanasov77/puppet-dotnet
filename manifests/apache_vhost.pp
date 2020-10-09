@@ -22,10 +22,6 @@ class vs_dotnet::apache_vhost (
             }
         ],
         
-        custom_fragment => "
-            ProxyPreserveHost On
-            ProxyPass / http://127.0.0.1:${reverseProxyPort/
-            ProxyPassReverse / http://127.0.0.1:${reverseProxyPort/
-        ",
+        custom_fragment => vs_devenv::apache_vhost_reverse_proxy( $reverseProxyPort ),
     }
 }
