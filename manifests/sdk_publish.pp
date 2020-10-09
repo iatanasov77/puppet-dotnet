@@ -2,7 +2,7 @@
 # Build and publish dotnet sdk projects into /srv/... dir and create linux service and start it
 # Tutorial: https://swimburger.net/blog/dotnet/how-to-run-aspnet-core-as-a-service-on-linux
 #######################################################################################################################
-class vs_dotnet::sdk_publish (
+define vs_dotnet::sdk_publish (
     String $projectName,
     String $projectPath,
     String $sdkUser             = 'vagrant',

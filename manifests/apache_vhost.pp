@@ -1,4 +1,4 @@
-class vs_dotnet::apache_vhost (
+define vs_dotnet::apache_vhost (
     String $hostName,
     String $documentRoot,
     Integer $reverseProxyPort   = 5000
