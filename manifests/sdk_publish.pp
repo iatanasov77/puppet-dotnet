@@ -19,7 +19,7 @@ define vs_dotnet::sdk_publish (
     
     File { "${projectName}.service":
         ensure  => file,
-        path    => "/etc/systemd/system/",
+        path    => "/etc/systemd/system/${projectName}.service",
         content => template( 'vs_dotnet/project.service.erb' ),
         mode    => '0755',
         require     => Class['vs_dotnet'],
