@@ -14,8 +14,8 @@ define vs_dotnet::sdk_publish (
         path        => "/home/${sdkUser}/.dotnet/",
         cwd         => "${projectPath}",
         user        => "${sdkUser}",
-        require     => Class['vs_dotnet'],
-    }
+        require     => Class['vs_dotnet::sdk_multiversion'],
+    } ->
     
     File { "${projectName}.service":
         ensure  => file,
@@ -23,5 +23,9 @@ define vs_dotnet::sdk_publish (
         content => template( 'vs_dotnet/project.service.erb' ),
         mode    => '0755',
         require     => Class['vs_dotnet'],
+    } ->
+    
+    Exec { "Start DotNet Application: ${projectName}":
+        command => "systemctl start ${projectName}"
     }
 }
