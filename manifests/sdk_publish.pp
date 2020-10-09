@@ -14,6 +14,7 @@ define vs_dotnet::sdk_publish (
         path        => "/home/${sdkUser}/.dotnet/",
         cwd         => "${projectPath}",
         user        => "${sdkUser}",
+        environment => [ 'DOTNET_CLI_HOME=/tmp' ],
         require     => Class['vs_dotnet::sdk_multiversion'],
     } ->
     
@@ -25,7 +26,8 @@ define vs_dotnet::sdk_publish (
         require     => Class['vs_dotnet'],
     } ->
     
-    Exec { "Start DotNet Application: ${projectName}":
-        command => "systemctl start ${projectName}"
+    Service { "Start DotNet Application: ${projectName}":
+        name    => "${projectName}",
+        ensure  => 'running',
     }
 }
