@@ -6,7 +6,7 @@ Description=ASP.NET Core web template
 
 [Service]
 WorkingDirectory=/srv/<%= @projectName %>
-ExecStart=/srv/<%= @projectName %>/<%= @projectName %>
+ExecStart=/srv/<%= @projectName %>/<%= @application %>
 SyslogIdentifier=<%= @projectName %>
 User=<%= @sdkUser %>
 Restart=always
