@@ -19,6 +19,7 @@ define vs_dotnet::sdk_publish (
         command     => "dotnet publish -c Debug -o /srv/${projectName}/ --self-contained --runtime linux-x64", # && true
         path        => "/home/${sdkUser}/.dotnet/",
         cwd         => "${projectPath}",
+        timeout     => 1800,
         user        => "${sdkUser}",
         environment => [ 'DOTNET_CLI_HOME=/tmp' ],
         require     => Class['vs_dotnet::sdk_multiversion'],
