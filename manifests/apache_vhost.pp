@@ -4,15 +4,16 @@ define vs_dotnet::apache_vhost (
     Integer $reverseProxyPort   = 5000
 ) {
     apache::vhost { "${hostName}":
-        port            => '80',
-        serveradmin     => "webmaster@${hostName}",
-        docroot         => "${documentRoot}", 
-        override        => 'all',
-        log_level       => 'debug',
-        
+        servername      => "${hostName}",
         serveraliases   => [
             "www.${hostName}",
         ],
+        
+        port            => 80,
+        serveradmin     => "webmaster@${hostName}",
+        docroot         => "${documentRoot}", 
+        override        => ['All'],
+        log_level       => 'debug',
         
         directories     => [
             {
@@ -25,3 +26,4 @@ define vs_dotnet::apache_vhost (
         custom_fragment => vs_devenv::apache_vhost_reverse_proxy( $reverseProxyPort ),
     }
 }
+
