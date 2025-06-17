@@ -20,10 +20,24 @@ class vs_dotnet::sdk (
     #####################################
     # Install DotNet Core
     #####################################
+    case $::operatingsystem {
+        'RedHat', 'CentOS', 'OracleLinux', 'Fedora', 'AlmaLinux': {
+            if Integer( $::operatingsystemmajrelease ) == 7 {
+                $baseUrl    = 'https://packages.microsoft.com/yumrepos/microsoft-rhel7.9-prod'
+            } elsif Integer( $::operatingsystemmajrelease ) == 8 {
+                $baseUrl    = 'https://packages.microsoft.com/yumrepos/microsoft-rhel8.2-prod'
+            } else {
+                fail( "Unsupported RHEL version '${::operatingsystemmajrelease}'" )
+            }
+        }
+        
+        default: { fail( "Unsupported OS '${::operatingsystem}'" ) }
+    }
+    
     yumrepo { 'packages-microsoft-com-prod': 
         name        => 'packages-microsoft-com-prod',
-        descr       => "Mictosoft dotNet Repo for RHEL7",
-        baseurl     => 'https://packages.microsoft.com/yumrepos/microsoft-rhel7.3-prod',
+        descr       => "Mictosoft dotNet Repo for RHEL",
+        baseurl     => $baseUrl,
         gpgkey      => 'https://packages.microsoft.com/keys/microsoft.asc',
         *           => $yumrepo_defaults,
     } ->

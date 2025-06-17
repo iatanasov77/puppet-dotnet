@@ -6,6 +6,9 @@ class vs_dotnet::sdk_multiversion (
     String $sdkUser    = 'vagrant',
     Array $sdks         = [],
 ) {
+    file { "/usr/share/dotnet":
+        ensure  => directory,
+    } ->
     wget::fetch { 'Install dotnet-install.sh':
         source      => "https://dot.net/v1/dotnet-install.sh",
         destination => "/usr/share/dotnet/",

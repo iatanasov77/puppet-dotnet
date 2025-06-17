@@ -4,10 +4,25 @@ class vs_dotnet::mono (
     #############################################################################################################################
     # Repo File: https://download.mono-project.com/repo/centos7-stable.repo
     #############################################################################################################################
-    yumrepo { 'mono-centos7-stable': 
-        name        => 'mono-centos7-stable',
-        descr       => "MonoProject Repo for RHEL7",
-        baseurl     => 'https://download.mono-project.com/repo/centos7-stable/',
+    
+    case $::operatingsystem {
+        'RedHat', 'CentOS', 'OracleLinux', 'Fedora', 'AlmaLinux': {
+            if Integer( $::operatingsystemmajrelease ) == 7 {
+                $baseUrl    = 'https://download.mono-project.com/repo/centos7-stable/'
+            } elsif Integer( $::operatingsystemmajrelease ) == 8 {
+                $baseUrl    = 'https://download.mono-project.com/repo/centos8-stable/'
+            } else {
+                fail( "Unsupported RHEL version '${::operatingsystemmajrelease}'" )
+            }
+        }
+        
+        default: { fail( "Unsupported OS '${::operatingsystem}'" ) }
+    }
+    
+    yumrepo { 'mono-stable': 
+        name        => 'mono-stable',
+        descr       => "MonoProject Repo for RHEL",
+        baseurl     => $baseUrl,
         gpgkey      => 'https://download.mono-project.com/repo/xamarin.gpg',
         *           => $yumrepo_defaults,
     } ->
