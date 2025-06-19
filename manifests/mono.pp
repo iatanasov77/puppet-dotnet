@@ -31,16 +31,17 @@ class vs_dotnet::mono (
         ensure  => present
     } ->
     
-    /* Not needed. Installing by mod_mono
-    package { 'xsp':
-        ensure  => present
-    } ->
-    */
-    
     # https://www.mono-project.com/docs/web/mod_mono/
-    package { 'mod_mono':
-        ensure  => present
+    if Integer( $::operatingsystemmajrelease ) == 7 {
+        package { 'mod_mono':
+            ensure  => present
+        }
+    } else {
+        package { 'xsp':
+            ensure  => present
+        } ->
+        package { 'mod_mono':
+            ensure  => present
+        }
     }
-    
-    
 }
