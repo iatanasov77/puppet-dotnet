@@ -57,4 +57,13 @@ class vs_dotnet::ms_sql::install (
         require     => [ Exec['Install mssql-tools'] ],
         environment => ['ACCEPT_EULA=y','MSSQL_PID=Developer',"MSSQL_SA_PASSWORD=${config['rootPassword']}"],
     }
+    
+    ##################################################################
+    # Create Needed Directories
+    ##################################################################
+    file { 'dotnet_backup_path':
+        ensure => directory,
+        path   => '/var/DotNetBackup',
+        mode   => '0777',
+    }
 }
