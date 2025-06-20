@@ -1,10 +1,6 @@
 class vs_dotnet::mono (
     $yumrepo_defaults
 ) {
-    #############################################################################################################################
-    # Repo File: https://download.mono-project.com/repo/centos7-stable.repo
-    #############################################################################################################################
-    
     case $::operatingsystem {
         'RedHat', 'CentOS', 'OracleLinux', 'Fedora', 'AlmaLinux': {
             if Integer( $::operatingsystemmajrelease ) == 7 {
@@ -43,5 +39,11 @@ class vs_dotnet::mono (
         package { 'mod_mono':
             ensure  => present
         }
+    }
+    
+    file { '/etc/httpd/conf.modules.d/mono.load':
+        mode    => '644',
+        content => 'LoadModule mono_module /etc/httpd/modules/mod_mono.so',
+        require     => [ Package['mod_mono'] ],
     }
 }
