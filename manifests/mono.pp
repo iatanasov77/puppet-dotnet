@@ -45,5 +45,10 @@ class vs_dotnet::mono (
         mode    => '644',
         content => 'LoadModule mono_module /etc/httpd/modules/mod_mono.so',
         require     => [ Package['mod_mono'] ],
+    } ->
+    file { '/etc/httpd/conf.modules.d/mono.conf':
+        mode    => '644',
+        content => template( 'vs_dotnet/mono.conf.erb' ),
+        require => [ Package['mod_mono'] ],
     }
 }
