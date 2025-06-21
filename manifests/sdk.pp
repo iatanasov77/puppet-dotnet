@@ -45,5 +45,14 @@ class vs_dotnet::sdk (
     package { "dotnet-sdk-${sdk_version}":
         ensure  => present,
         require => [ Package['libunwind'], Package['libicu']],
+    } ->
+    exec { "Trust HTTPS development certificate for Root User":
+        command     => 'dotnet dev-certs https --trust',
+        environment => "HOME=${facts['root_home']}",
+    } ->
+    exec { "Trust HTTPS development certificate for Vagrant User":
+        command     => 'dotnet dev-certs https --trust',
+        user        => 'vagrant',
+        environment => ['HOME=/home/vagrant'],
     }
 }

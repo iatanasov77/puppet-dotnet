@@ -2,7 +2,7 @@
 # Example: VsMyprojects/examples/TestApplication/TestApplication.service
 #############################################################################
 [Unit]
-Description=ASP.NET Core web template
+Description=<%= @description %>
 
 [Service]
 WorkingDirectory=/srv/<%= @projectName %>
@@ -15,8 +15,8 @@ RestartSec=5
 KillSignal=SIGINT
 Environment=ASPNETCORE_ENVIRONMENT=Development
 Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
-Environment=DOTNET_ROOT=/home/<%= @sdkUser %>/.dotnet/dotnet
-Environment=ASPNETCORE_URLS=http://*:<%= @reverseProxyPort %>
+#Environment=DOTNET_ROOT=/home/<%= @sdkUser %>/.dotnet/dotnet
+Environment=ASPNETCORE_URLS=<%= @aspnetCoreUrls %>
 
 [Install]
 WantedBy=multi-user.target

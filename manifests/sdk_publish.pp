@@ -4,37 +4,38 @@
 #######################################################################################################################
 define vs_dotnet::sdk_publish (
     String $application,
+    String $description     = 'ASP.NET Core web template',
     String $projectName,
     String $projectPath,
-    String $sdkUser             = 'vagrant',
-    Integer $reverseProxyPort   = 5000
+    String $sdkUser         = 'vagrant',
+    String $aspnetCoreUrls
 ) {
     File { "Create DotNet Application Publish Path: ${projectPath}":
         ensure  => directory,
         path    => "/srv/${projectName}",
-        mode    => "0777",
+        owner   => "${sdkUser}",
+        require => Class['vs_dotnet::sdk_multiversion'],
     } ->
 
     Exec { "Publish Dotnet Application: ${projectName}":
-        command     => "dotnet publish -c Debug -o /srv/${projectName}/ --self-contained --runtime linux-x64", # && true
+        command     => "dotnet publish -c Debug -o /srv/${projectName}/",
         path        => "/home/${sdkUser}/.dotnet/",
         cwd         => "${projectPath}",
-        timeout     => 1800,
+        timeout     => 0,
         user        => "${sdkUser}",
-        environment => [ 'DOTNET_CLI_HOME=/tmp' ],
-        require     => Class['vs_dotnet::sdk_multiversion'],
+        environment => ["HOME=/home/${sdkUser}"],
     } ->
     
-    File { "${projectName}.service":
+    File { "${projectName}${application}.service":
         ensure  => file,
-        path    => "/etc/systemd/system/${projectName}.service",
+        path    => "/etc/systemd/system/${projectName}${application}.service",
         content => template( 'vs_dotnet/project.service.erb' ),
-        mode    => '0755',
-        require     => Class['vs_dotnet'],
+        mode    => '0644',
     } ->
     
     Service { "Start DotNet Application: ${projectName}":
         name    => "${projectName}",
         ensure  => 'running',
+        enable  => true,
     }
 }
