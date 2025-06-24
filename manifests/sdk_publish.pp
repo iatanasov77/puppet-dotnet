@@ -33,8 +33,8 @@ define vs_dotnet::sdk_publish (
         mode    => '0644',
     } ->
     
-    Service { "Start DotNet Application: ${projectName}":
-        name    => "${projectName}",
+    Service { "Start DotNet Application: ${projectName}${application}":
+        name    => "${projectName}${application}",
         ensure  => 'running',
         enable  => true,
     }
