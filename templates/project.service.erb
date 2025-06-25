@@ -18,5 +18,10 @@ Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
 #Environment=DOTNET_ROOT=/home/<%= @sdkUser %>/.dotnet/dotnet
 Environment=ASPNETCORE_URLS=<%= @aspnetCoreUrls %>
 
+<% if @ssl -%>
+Environment=SSL_CERT_DIR=/home/<%= @sdkUser %>/.aspnet/dev-certs/trust:/etc/pki/tls/certs
+Environment=SSL_CERT_FILE=/etc/pki/tls/certs/<%= @sslHost %>.crt
+<% end -%>
+
 [Install]
 WantedBy=multi-user.target

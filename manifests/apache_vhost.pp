@@ -1,7 +1,9 @@
 define vs_dotnet::apache_vhost (
     String $hostName,
     String $documentRoot,
-    Integer $reverseProxyPort   = 5000
+    Integer $reverseProxyPort   = 5000,
+    Boolean $ssl                = false,
+    String $sslHost             = 'myprojects.lh',
 ) {
     apache::vhost { "${hostName}":
         servername      => "${hostName}",

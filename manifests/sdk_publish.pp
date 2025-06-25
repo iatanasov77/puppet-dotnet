@@ -8,7 +8,9 @@ define vs_dotnet::sdk_publish (
     String $projectName,
     String $projectPath,
     String $sdkUser         = 'vagrant',
-    String $aspnetCoreUrls
+    String $aspnetCoreUrls,
+    Boolean $ssl            = false,
+    String $sslHost         = 'myprojects.lh',
 ) {
     File { "Create DotNet Application Publish Path: ${projectPath}":
         ensure  => directory,
