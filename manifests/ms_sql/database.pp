@@ -17,5 +17,9 @@ define vs_dotnet::ms_sql::database (
         user        => 'vagrant',
         environment => ['HOME=/home/vagrant'],
         require     => [ File['dotnet_backup_path'], Class['vs_dotnet::ms_sql::install'] ],
+    } ->
+    
+    exec { "Remove MsSql Database Backup for ${dbName}":
+        command => "/usr/bin/rm -f /var/DotNetBackup/${dbName}.bac",
     }
 }
