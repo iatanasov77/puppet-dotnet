@@ -7,7 +7,9 @@ Description=<%= @description %>
 [Service]
 WorkingDirectory=/srv/<%= @projectName %>
 ExecStart=/srv/<%= @projectName %>/<%= @application %>
-SyslogIdentifier=<%= @projectName %>
+StandardOutput=append:/srv/<%= @projectName %>/<%= @application %>.log
+StandardError=append:/srv/<%= @projectName %>/<%= @application %>.log
+
 User=<%= @sdkUser %>
 Restart=always
 RestartSec=5
@@ -15,7 +17,6 @@ RestartSec=5
 KillSignal=SIGINT
 Environment=ASPNETCORE_ENVIRONMENT=Development
 Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
-#Environment=DOTNET_ROOT=/home/<%= @sdkUser %>/.dotnet/dotnet
 Environment=ASPNETCORE_URLS=<%= @aspnetCoreUrls %>
 
 <% if @ssl -%>
