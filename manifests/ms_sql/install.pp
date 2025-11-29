@@ -4,17 +4,17 @@ class vs_dotnet::ms_sql::install (
     ##################################################################
     # Install MS Sql Server
     ##################################################################
-    case $::operatingsystem {
+    case $facts['os']['name'] {
         'RedHat', 'CentOS', 'OracleLinux', 'Fedora', 'AlmaLinux': {
-            if Integer( $::operatingsystemmajrelease ) == 8 {
+            if Integer( $facts['os']['release']['major'] ) == 8 {
                 $baseUrl        = "https://packages.microsoft.com/config/rhel/8/mssql-server-${config['version']}.repo"
                 $prodRepoUrl    = "https://packages.microsoft.com/config/rhel/8/prod.repo"
             } else {
-                fail( "Unsupported RHEL version '${::operatingsystemmajrelease}'" )
+                fail( "Unsupported RHEL version '${facts['os']['release']['major']}'" )
             }
         }
         
-        default: { fail( "Unsupported OS '${::operatingsystem}'" ) }
+        default: { fail( "Unsupported OS '${facts['os']['name']}'" ) }
     }
     
     exec { "Adding MS SQL Server Repo ${config['version']}":
@@ -43,8 +43,8 @@ class vs_dotnet::ms_sql::install (
         content => 'PATH=$PATH:/opt/mssql-tools/bin',
     } ->
     
-    exec { 'Install DotNet-EF Tool':
-        command => 'dotnet tool install --global dotnet-ef',
+    exec { "Install DotNet-EF Tool Version ${config['ef_tool']}":
+        command => "dotnet tool install --global dotnet-ef --version ${config['ef_tool']}",
         user    => 'vagrant',
         environment => ['HOME=/home/vagrant'],
     }

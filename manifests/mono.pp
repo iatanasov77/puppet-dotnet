@@ -1,18 +1,18 @@
 class vs_dotnet::mono (
     $yumrepo_defaults
 ) {
-    case $::operatingsystem {
+    case $facts['os']['name'] {
         'RedHat', 'CentOS', 'OracleLinux', 'Fedora', 'AlmaLinux': {
-            if Integer( $::operatingsystemmajrelease ) == 7 {
+            if Integer( $facts['os']['release']['major'] ) == 7 {
                 $baseUrl    = 'https://download.mono-project.com/repo/centos7-stable/'
-            } elsif Integer( $::operatingsystemmajrelease ) == 8 {
+            } elsif Integer( $facts['os']['release']['major'] ) == 8 {
                 $baseUrl    = 'https://download.mono-project.com/repo/centos8-stable/'
             } else {
-                fail( "Unsupported RHEL version '${::operatingsystemmajrelease}'" )
+                fail( "Unsupported RHEL version '${facts['os']['release']['major']}'" )
             }
         }
         
-        default: { fail( "Unsupported OS '${::operatingsystem}'" ) }
+        default: { fail( "Unsupported OS '${facts['os']['name']}'" ) }
     }
     
     yumrepo { 'mono-stable': 
@@ -28,7 +28,7 @@ class vs_dotnet::mono (
     } ->
     
     # https://www.mono-project.com/docs/web/mod_mono/
-    if Integer( $::operatingsystemmajrelease ) == 7 {
+    if Integer( $facts['os']['release']['major'] ) == 7 {
         package { 'mod_mono':
             ensure  => present
         }

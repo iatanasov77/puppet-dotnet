@@ -13,8 +13,8 @@ class vs_dotnet (
     # EntityFramework: https://github.com/dotnet/efcore
     ######################################################
     
-    if ( $::operatingsystem == 'centos' or $::operatingsystem == 'AlmaLinux' ) {
-    	if ( $::operatingsystemmajrelease == '7' and ! defined(Package['yum-plugin-priorities']) ) {
+    if ( $facts['os']['name'] == 'CentOS' or $facts['os']['name'] == 'AlmaLinux' ) {
+    	if ( $facts['os']['release']['major'] == '7' and ! defined(Package['yum-plugin-priorities']) ) {
 	        package { 'yum-plugin-priorities':
 	            ensure => 'present',
 	        }
